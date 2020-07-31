@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+   </head>
+   <body>
+      <style>
+         .hrClass {
+         font-size:50px;
+         color:blue;
+         } 
+         .minClass {
+         font-size:50px;
+         color:green;
+         } 
+         .secClass {
+         font-size:50px;
+         color:red;
+         } 
+      </style>
+      <div class="jumbotron container">
+         <div class="hrClass">
+            <span>Hours</span>: <span id="hr"></span>
+         </div>
+         <div class="minClass">
+            <span>Minutes</span>: <span id="min"></span>
+         </div>
+         <div class="secClass">
+            <span>Seconds</span>: <span id="sec"></span>
+         </div>
+         <br/>
+         <button type="button" class="btn btn-primary" onClick="start()"><span id="buttonText1"></span></button>
+         <button type="button" class="btn btn-secondary" onClick="reset()"><span id="buttonText2"></span></button>
+      </div>
+      <script>
+      
+      // Stop Watch by Sachin Ojha
+      var intervalStart;
+      elem1 = document.getElementById("hr");
+      elem2 = document.getElementById("min");
+      elem3 = document.getElementById("sec");
+      elem4 = document.getElementById("buttonText1");
+      elem5 = document.getElementById("buttonText2");
+
+
+
+      elem4.innerHTML = "Start";
+      elem5.innerHTML = "Reset";
+
+      var x = 00; // Declare x
+      var y = 00;
+      var z = 00;
+
+      var i, j, k;
+      //valueStore();
+      elem1.innerHTML = "00";
+      elem2.innerHTML = "00";
+      elem3.innerHTML = "00";
+
+
+      function start() {
+          if (elem4.innerHTML == "Start")
+              elem4.innerHTML = "Pause";
+          else {
+              if (elem4.innerHTML == "Pause")
+                  elem4.innerHTML = "Resume";
+              else
+                  elem4.innerHTML = "Pause";
+          }
+
+
+          if (elem4.innerHTML == "Pause")
+              intervalStart = setInterval(counterOn, 1000);
+          else
+              clearInterval(intervalStart);
+      }
+
+      function counterOn() {
+          z += 1;
+          if (z > 59) {
+              y += 1
+
+              z = 0;
+
+              if (y > 59) {
+                  x += 1;
+
+                  y = 0;
+                  if (x > 23) {
+                      x = y = z = 0;
+                      i = j = k = "00"
+                  }
+              }
+          }
+          i = (z < 10) ? "0" + z : (z > 59) ? "00" : z;
+          j = (y < 10) ? "0" + y : (y > 59) ? "00" : y;
+          k = (x < 10) ? "0" + x : (x > 23) ? "00" : x;
+          valueStore();
+      }
+
+      function reset() {
+          clearInterval(intervalStart);
+          x = y = z = 0;
+          valueInitializer();
+          valueStore();
+          elem4.innerHTML = "Start";
+      }
+
+      function valueInitializer() {
+          i = j = k = "00"
+      }
+
+      function valueStore() {
+          elem1.innerHTML = k;
+          elem2.innerHTML = j;
+          elem3.innerHTML = i;
+      }				
+      </script>
+   </body>
+</html>
